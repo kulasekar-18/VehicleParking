@@ -1,0 +1,162 @@
+.container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.title {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+.filters {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.filters select {
+    padding: 8px 12px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: #f8f9fa;
+    cursor: pointer;
+    transition: border 0.2s;
+}
+
+.filters select:hover {
+    border-color: #007bff;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.card h4 {
+    margin: 0;
+    font-size: 18px;
+    color: #222;
+}
+
+.badge {
+    padding: 4px 10px;
+    font-size: 12px;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.badgeAvailable {
+    background: #d4edda;
+    color: #155724;
+}
+
+.badgeOccupied {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.available {
+    border-left: 5px solid #28a745;
+}
+
+.occupied {
+    border-left: 5px solid #dc3545;
+}
+
+p {
+    margin: 6px 0;
+    font-size: 14px;
+    color: #555;
+}
+
+
+/* Buttons */
+
+.bookBtn,
+.releaseBtn {
+    display: inline-block;
+    margin-top: 8px;
+    padding: 8px 12px;
+    font-size: 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.bookBtn {
+    background: #007bff;
+    color: white;
+}
+
+.bookBtn:hover {
+    background: #0056b3;
+    transform: scale(1.05);
+}
+
+.releaseBtn {
+    background: #dc3545;
+    color: white;
+    margin-left: 5px;
+}
+
+.releaseBtn:hover {
+    background: #a71d2a;
+    transform: scale(1.05);
+}
+
+
+/* Booking Form */
+
+.form {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form input {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.form input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.formActions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+}

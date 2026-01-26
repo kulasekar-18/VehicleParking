@@ -1,0 +1,94 @@
+/* Full background */
+
+.view-slots {
+    min-height: 100vh;
+    background: linear-gradient(to right, #74ebd5, #9face6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+
+/* Card container */
+
+.container {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-width: 900px;
+    width: 100%;
+}
+
+
+/* Title */
+
+.title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+
+/* Loading + No Slots */
+
+.loading,
+.no-slots {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    color: #555;
+}
+
+
+/* Table */
+
+.slots-table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.slots-table th {
+    background: #3f51b5;
+    color: white;
+    padding: 12px;
+    text-align: left;
+}
+
+.slots-table td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+
+/* Alternating row colors */
+
+.slots-table tr.even {
+    background-color: #f9f9f9;
+}
+
+.slots-table tr.odd {
+    background-color: #fff;
+}
+
+.slots-table tr:hover {
+    background-color: #e8f0fe;
+    transition: 0.3s;
+}
+
+
+/* Status colors */
+
+.status.available {
+    color: green;
+    font-weight: bold;
+}
+
+.status.booked {
+    color: red;
+    font-weight: bold;
+}

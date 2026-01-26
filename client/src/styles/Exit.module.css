@@ -1,0 +1,111 @@
+.exitPage {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #0f172a, #1e3a8a, #2563eb, #3b82f6);
+    background-size: 300% 300%;
+    animation: gradientMove 12s ease infinite;
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 30px;
+    border-radius: 20px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+    width: 420px;
+    color: #fff;
+}
+
+.header {
+    text-align: center;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+}
+
+.input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    margin-bottom: 15px;
+}
+
+.button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: 0.3s;
+}
+
+.exitBtn {
+    background: #ef4444;
+    color: white;
+}
+
+.exitBtn:hover {
+    background: #dc2626;
+}
+
+.printBtn {
+    background: #22c55e;
+    color: white;
+}
+
+.printBtn:hover {
+    background: #16a34a;
+}
+
+.shareBtn {
+    background: #25d366;
+    color: white;
+}
+
+.shareBtn:hover {
+    background: #1ebe5a;
+}
+
+.error {
+    color: #f87171;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.receipt {
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px solid #ccc;
+}
+
+.receiptTitle {
+    font-size: 1.4rem;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.qrContainer {
+    text-align: center;
+    margin: 15px 0;
+}
+
+.qrCode {
+    width: 120px;
+    height: 120px;
+}

@@ -1,0 +1,136 @@
+/* ===== BACKGROUND ===== */
+
+.dashboard {
+    min-height: 100vh;
+    padding: 30px;
+    background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    font-family: "Segoe UI", system-ui, sans-serif;
+    color: #fff;
+}
+
+
+/* ===== CARD ===== */
+
+.card {
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(14px);
+    border-radius: 16px;
+    padding: 25px;
+    box-shadow: 0 10px 35px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+
+/* ===== SEARCH ===== */
+
+.search {
+    width: 260px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: none;
+    margin: 15px 0;
+    outline: none;
+}
+
+
+/* ===== TABLE ===== */
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.table th {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 14px;
+    text-align: left;
+}
+
+.table td {
+    padding: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.table tr:hover {
+    background: rgba(255, 255, 255, 0.08);
+}
+
+
+/* ===== ROLES ===== */
+
+.roleAdmin {
+    background: #ff9800;
+    padding: 4px 10px;
+    border-radius: 6px;
+    color: #000;
+}
+
+.roleUser {
+    background: #00c49f;
+    padding: 4px 10px;
+    border-radius: 6px;
+    color: #000;
+}
+
+
+/* ===== BUTTONS ===== */
+
+.btn {
+    padding: 6px 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    margin-right: 6px;
+    font-size: 13px;
+}
+
+.btnLog {
+    background: #00c49f;
+}
+
+.btnDelete {
+    background: #ff4d4f;
+    color: #fff;
+}
+
+.btnClose {
+    background: #0088fe;
+    color: #fff;
+    margin-top: 10px;
+}
+
+
+/* ===== MODAL ===== */
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal {
+    background: #1e293b;
+    padding: 25px;
+    border-radius: 16px;
+    width: 420px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.logs li {
+    margin-bottom: 8px;
+}
+
+.email {
+    opacity: 0.8;
+    margin-bottom: 10px;
+}
+
+.empty {
+    margin-top: 15px;
+    opacity: 0.7;
+}

@@ -1,0 +1,121 @@
+/* 🔹 Auth Container */
+
+.authContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+    padding: 20px;
+}
+
+
+/* 🔹 Form */
+
+.authForm {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.authForm:hover {
+    transform: translateY(-3px);
+}
+
+
+/* 🔹 Title */
+
+.authTitle {
+    font-size: 22px;
+    margin-bottom: 20px;
+    color: #1e88e5;
+    font-weight: 700;
+}
+
+
+/* 🔹 Input Fields */
+
+
+/* Auth.module.css */
+
+.authForm input {
+    width: 100%;
+    padding: 14px 16px;
+    /* ⬆ more padding for bigger height */
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 20px;
+    /* ⬆ bigger text */
+    transition: border 0.3s ease, box-shadow 0.3s ease;
+}
+
+.authForm input:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 6px rgba(0, 123, 255, 0.3);
+    outline: none;
+}
+
+
+/* 🔹 Error Message */
+
+.error {
+    color: #d32f2f;
+    font-size: 14px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+
+/* 🔹 Car Button */
+
+.carButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #4caf50, #2e7d32);
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.3s ease;
+    margin-top: 12px;
+}
+
+.carButton:hover {
+    background: linear-gradient(135deg, #43a047, #1b5e20);
+    transform: scale(1.05);
+}
+
+.carIcon {
+    font-size: 20px;
+}
+
+
+/* 🔹 Switch Text */
+
+.switchText {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #333;
+}
+
+.switchText .link {
+    color: #1e88e5;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.switchText .link:hover {
+    text-decoration: underline;
+}
