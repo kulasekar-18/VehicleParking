@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/VehicleParking/static/css/main.165e39cb.css",
+    "main.js": "/VehicleParking/static/js/main.e510cd0b.js",
+    "static/js/977.2e3d5464.chunk.js": "/VehicleParking/static/js/977.2e3d5464.chunk.js",
+    "static/js/455.e7f0fd3d.chunk.js": "/VehicleParking/static/js/455.e7f0fd3d.chunk.js",
+    "index.html": "/VehicleParking/index.html",
+    "main.165e39cb.css.map": "/VehicleParking/static/css/main.165e39cb.css.map",
+    "main.e510cd0b.js.map": "/VehicleParking/static/js/main.e510cd0b.js.map",
+    "977.2e3d5464.chunk.js.map": "/VehicleParking/static/js/977.2e3d5464.chunk.js.map",
+    "455.e7f0fd3d.chunk.js.map": "/VehicleParking/static/js/455.e7f0fd3d.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.165e39cb.css",
+    "static/js/main.e510cd0b.js"
+  ]
+}
