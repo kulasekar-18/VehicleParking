@@ -78,7 +78,7 @@ const EmployeeDashboard = () => {
     fetchData();
     const timer = setInterval(fetchData, REFRESH_INTERVAL);
     return () => clearInterval(timer);
-  }, [user]);
+  }, [user,fetchData]);
 
   /* ================= TYPING EFFECT ================= */
   useEffect(() => {
