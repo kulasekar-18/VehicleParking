@@ -1,6 +1,5 @@
 // src/pages/AdminEmployees.jsx
 import React, { useEffect, useMemo, useState } from "react";
-import jsPDF from "jspdf";
 import * as XLSX from "xlsx";
 import { saveAs } from "file-saver";
 import styles from "../styles/AdminUsers.module.css";

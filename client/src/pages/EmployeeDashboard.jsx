@@ -47,8 +47,8 @@ const EmployeeDashboard = () => {
     if (!user) return;
 
     const [eRes, aRes] = await Promise.all([
-      fetch(`http://localhost:5000/api/users/${user._id}/entries`),
-      fetch(`http://localhost:5000/api/users/${user._id}/activity`),
+      fetch(`https://vehicleparking-2xf0.onrender.com/api/users/${user._id}/entries`)
+      fetch(`https://vehicleparking-2xf0.onrender.com/api/users/${user._id}/activity`)
     ]);
 
     const newEntries = await eRes.json();
@@ -78,7 +78,7 @@ const EmployeeDashboard = () => {
     fetchData();
     const timer = setInterval(fetchData, REFRESH_INTERVAL);
     return () => clearInterval(timer);
-  }, [user]);
+  }, [user,fetchData]);
 
   /* ================= TYPING EFFECT ================= */
   useEffect(() => {
@@ -120,7 +120,7 @@ const EmployeeDashboard = () => {
   const startShift = async () => {
     try {
       const res = await fetch(
-        "http://localhost:5000/api/employee/shift/start",
+        "https://vehicleparking-2xf0.onrender.com/api/employee/shift/start",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -141,7 +141,7 @@ const EmployeeDashboard = () => {
   const endShift = async () => {
     try {
       const res = await fetch(
-        "http://localhost:5000/api/employee/shift/end",
+        "https://vehicleparking-2xf0.onrender.com/api/employee/shift/end",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
