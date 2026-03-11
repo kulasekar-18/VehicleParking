@@ -6,7 +6,6 @@ import "react-toastify/dist/ReactToastify.css";
 import { useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
-/* ✅ FIXED IMPORTS */
 import { QRCodeCanvas } from "qrcode.react";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
@@ -24,20 +23,58 @@ const Entry = () => {
   const [selectedSlot, setSelectedSlot] = useState(preselectedSlotId);
 
   const [ticket, setTicket] = useState(null);
+  const [activeBooking, setActiveBooking] = useState(null);
+
   const ticketRef = useRef(null);
+
+  /* ================= FETCH ACTIVE BOOKING ================= */
+  useEffect(() => {
+    if (!user) return;
+
+    const fetchActiveBooking = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/api/bookings/by-user/${user._id}`
+        );
+
+        const active = res.data.find((b) => b.status === "active");
+
+        if (active) {
+          setActiveBooking(active);
+
+          // 🔥 Auto-fill form
+          setOwnerName(active.ownerName);
+          setOwnerMobile(active.ownerMobile);
+          setVehicleNumber(active.vehicleNumber);
+          setVehicleType(active.vehicleType);
+          setSelectedSlot(active.slot._id);
+
+          toast.info("🔒 Active booking loaded");
+        }
+      } catch {
+        console.log("No active booking");
+      }
+    };
+
+    fetchActiveBooking();
+  }, [user]);
 
   /* ================= FETCH AVAILABLE SLOTS ================= */
   useEffect(() => {
     const fetchSlots = async () => {
       try {
-        const res = await axios.get("http://localhost:5000/api/slots", {
-          params: { status: "available", type: vehicleType },
-        });
+        const res = await axios.get(
+          "http://localhost:5000/api/slots",
+          {
+            params: { type: vehicleType },
+          }
+        );
         setSlots(res.data);
       } catch {
         toast.error("Failed to load slots");
       }
     };
+
     fetchSlots();
   }, [vehicleType]);
 
@@ -72,11 +109,17 @@ Thank you for using our Parking Service 🙏`;
     e.preventDefault();
 
     if (!user) return toast.error("Please login again");
+
     if (ownerMobile.length !== 10)
       return toast.error("Enter valid 10-digit mobile number");
 
+    if (!selectedSlot)
+      return toast.error("Please select a slot");
+
     const slotObj = slots.find((s) => s._id === selectedSlot);
-    if (!slotObj) return toast.error("Please select a valid slot");
+
+    if (!slotObj)
+      return toast.error("Invalid slot selected");
 
     const entryData = {
       userId: user._id,
@@ -88,7 +131,10 @@ Thank you for using our Parking Service 🙏`;
     };
 
     try {
-      await axios.post("http://localhost:5000/api/parking/entry", entryData);
+      await axios.post(
+        "http://localhost:5000/api/parking/entry",
+        entryData
+      );
 
       toast.success("✅ Vehicle entry successful");
 
@@ -105,12 +151,17 @@ Thank you for using our Parking Service 🙏`;
         slotName: slotObj.name,
       });
 
+      // ✅ Clear active booking after entry
+      setActiveBooking(null);
+
       setOwnerName("");
       setOwnerMobile("");
       setVehicleNumber("");
       setSelectedSlot("");
     } catch (err) {
-      toast.error(err.response?.data?.message || "Entry failed");
+      toast.error(
+        err.response?.data?.message || "Entry failed"
+      );
     }
   };
 
@@ -121,34 +172,61 @@ Thank you for using our Parking Service 🙏`;
 
   /* ================= PDF DOWNLOAD ================= */
   const handleDownloadPDF = async () => {
-    const canvas = await html2canvas(ticketRef.current, { scale: 2 });
+    const canvas = await html2canvas(ticketRef.current, {
+      scale: 2,
+    });
     const imgData = canvas.toDataURL("image/png");
 
     const pdf = new jsPDF("p", "mm", "a4");
     const pdfWidth = 190;
-    const imgHeight = (canvas.height * pdfWidth) / canvas.width;
+    const imgHeight =
+      (canvas.height * pdfWidth) / canvas.width;
 
-    pdf.addImage(imgData, "PNG", 10, 10, pdfWidth, imgHeight);
+    pdf.addImage(
+      imgData,
+      "PNG",
+      10,
+      10,
+      pdfWidth,
+      imgHeight
+    );
     pdf.save("parking-ticket.pdf");
   };
 
   return (
     <div className={styles.entryPage}>
       <div className={styles.card}>
-        <h2 className={styles.header}>🚗 Vehicle Entry</h2>
+        <h2 className={styles.header}>
+          🚗 Vehicle Entry
+        </h2>
 
-        <form onSubmit={handleSubmit} className={styles.form}>
+        {/* 🔒 ACTIVE BOOKING INFO */}
+        {activeBooking && (
+          <div className={styles.bookingInfo}>
+            🔒 Active Booking Found for Slot:{" "}
+            <b>{activeBooking.slot.name}</b>
+          </div>
+        )}
+
+        <form
+          onSubmit={handleSubmit}
+          className={styles.form}
+        >
           <input
             placeholder="Owner Name"
             value={ownerName}
-            onChange={(e) => setOwnerName(e.target.value)}
+            onChange={(e) =>
+              setOwnerName(e.target.value)
+            }
             required
           />
 
           <input
             placeholder="Mobile Number"
             value={ownerMobile}
-            onChange={(e) => setOwnerMobile(e.target.value)}
+            onChange={(e) =>
+              setOwnerMobile(e.target.value)
+            }
             maxLength={10}
             required
           />
@@ -156,13 +234,17 @@ Thank you for using our Parking Service 🙏`;
           <input
             placeholder="Vehicle Number"
             value={vehicleNumber}
-            onChange={(e) => setVehicleNumber(e.target.value)}
+            onChange={(e) =>
+              setVehicleNumber(e.target.value)
+            }
             required
           />
 
           <select
             value={vehicleType}
-            onChange={(e) => setVehicleType(e.target.value)}
+            onChange={(e) =>
+              setVehicleType(e.target.value)
+            }
           >
             <option value="Car">🚗 Car</option>
             <option value="Bike">🏍 Bike</option>
@@ -170,71 +252,100 @@ Thank you for using our Parking Service 🙏`;
 
           <select
             value={selectedSlot}
-            onChange={(e) => setSelectedSlot(e.target.value)}
+            onChange={(e) =>
+              setSelectedSlot(e.target.value)
+            }
             required
           >
             <option value="">📍 Select Slot</option>
             {slots.map((s) => (
-              <option key={s._id} value={s._id}>
+              <option
+                key={s._id}
+                value={s._id}
+              >
                 {s.name} ({s.type})
               </option>
             ))}
           </select>
 
-          <button type="submit">Confirm Entry</button>
+          <button type="submit">
+            Confirm Entry
+          </button>
         </form>
 
-        {/* ================= PARKING TICKET ================= */}
+        {/* ================= TICKET ================= */}
         {ticket && (
           <>
-            <div className={styles.ticket} ref={ticketRef}>
-              <h3 className={styles.ticketTitle}>🎟 Parking Ticket</h3>
+            <div
+              className={styles.ticket}
+              ref={ticketRef}
+            >
+              <h3
+                className={styles.ticketTitle}
+              >
+                🎟 Parking Ticket
+              </h3>
 
-              <div className={styles.ticketRow}>
-                <span>Owner</span>
-                <strong>{ticket.ownerName}</strong>
-              </div>
+              <p>
+                <strong>Owner:</strong>{" "}
+                {ticket.ownerName}
+              </p>
+              <p>
+                <strong>Vehicle:</strong>{" "}
+                {ticket.vehicleNumber} (
+                {ticket.vehicleType})
+              </p>
+              <p>
+                <strong>Slot:</strong>{" "}
+                {ticket.slotName}
+              </p>
+              <p>
+                <strong>Entry:</strong>{" "}
+                {ticket.entryTime}
+              </p>
 
-              <div className={styles.ticketRow}>
-                <span>Vehicle</span>
-                <strong>
-                  {ticket.vehicleNumber} ({ticket.vehicleType})
-                </strong>
-              </div>
-
-              <div className={styles.ticketRow}>
-                <span>Slot</span>
-                <strong>{ticket.slotName}</strong>
-              </div>
-
-              <div className={styles.ticketRow}>
-                <span>Entry Time</span>
-                <strong>{ticket.entryTime}</strong>
-              </div>
-
-              {/* ✅ QR CODE */}
-              <div className={styles.qrBox}>
+              <div
+                className={styles.qrBox}
+              >
                 <QRCodeCanvas
                   value={`VEHICLE:${ticket.vehicleNumber}|SLOT:${ticket.slotName}|TIME:${ticket.entryTime}`}
                   size={120}
                 />
               </div>
 
-              <p className={styles.ticketFooter}>
+              <p
+                className={
+                  styles.ticketFooter
+                }
+              >
                 Please keep this ticket safe 🚗
               </p>
             </div>
 
-            {/* ================= ACTION BUTTONS ================= */}
-            <div className={styles.ticketActions}>
-              <button onClick={handlePrint}>🖨 Print</button>
-              <button onClick={handleDownloadPDF}>📄 Download PDF</button>
+            <div
+              className={
+                styles.ticketActions
+              }
+            >
+              <button onClick={handlePrint}>
+                🖨 Print
+              </button>
+              <button
+                onClick={
+                  handleDownloadPDF
+                }
+              >
+                📄 Download PDF
+              </button>
             </div>
           </>
         )}
       </div>
 
-      <ToastContainer position="top-right" autoClose={3000} />
+      <ToastContainer
+        position="top-right"
+        autoClose={3000}
+      />
     </div>
   );
 };

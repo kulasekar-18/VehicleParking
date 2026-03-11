@@ -1,7 +1,7 @@
 // src/context/AuthContext.jsx
 import React, { createContext, useState, useEffect } from "react";
 
-const API_URL = "http://localhost:5000/api";
+const API_URL = "https://vehicleparking-2xf0.onrender.com/api";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {

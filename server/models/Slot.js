@@ -8,6 +8,7 @@ const slotSchema = new mongoose.Schema(
       required: true,
       unique: true,
       trim: true,
+      uppercase: true, // B1, B2 consistency
     },
 
     type: {
@@ -39,7 +40,7 @@ const slotSchema = new mongoose.Schema(
     lockExpiresAt: {
       type: Date,
       default: null,
-      index: true, // ⚡ fast auto-unlock
+      index: true, // ⚡ fast auto unlock query
     },
 
     /* ================= FINAL BOOKING ================= */
@@ -50,23 +51,28 @@ const slotSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true, // createdAt, updatedAt
+    timestamps: true,
   }
 );
 
 /* ================= INDEXES ================= */
 
-/**
- * Optimizes queries like:
- * - find available slots
- * - auto-unlock expired locks
- */
+// Fast filtering by status + auto unlock
 slotSchema.index({ status: 1, lockExpiresAt: 1 });
 
-/**
- * Prevent same slot being booked twice logically
- * (handled in code, index helps performance)
- */
-slotSchema.index({ _id: 1, status: 1 });
+// Prevent duplicate name (extra safety)
+slotSchema.index({ name: 1 }, { unique: true });
+
+/* ================= AUTO CLEAN LOCK HELPER ================= */
+/*
+  This does NOT auto-unlock.
+  Your setInterval in server handles that.
+  But this ensures clean state consistency.
+*/
+
+slotSchema.methods.isLockExpired = function () {
+  if (!this.lockExpiresAt) return false;
+  return new Date() > this.lockExpiresAt;
+};
 
 module.exports = mongoose.model("Slot", slotSchema);
