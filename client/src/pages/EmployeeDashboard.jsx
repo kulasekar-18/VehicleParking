@@ -47,7 +47,7 @@ const EmployeeDashboard = () => {
     if (!user) return;
 
     const [eRes, aRes] = await Promise.all([
-      fetch(`https://vehicleparking-2xf0.onrender.com/api/users/${user._id}/entries`)
+      fetch(`https://vehicleparking-2xf0.onrender.com/api/users/${user._id}/entries`),
       fetch(`https://vehicleparking-2xf0.onrender.com/api/users/${user._id}/activity`)
     ]);
 
@@ -78,7 +78,7 @@ const EmployeeDashboard = () => {
     fetchData();
     const timer = setInterval(fetchData, REFRESH_INTERVAL);
     return () => clearInterval(timer);
-  }, [user,fetchData]);
+  }, [user]);
 
   /* ================= TYPING EFFECT ================= */
   useEffect(() => {
