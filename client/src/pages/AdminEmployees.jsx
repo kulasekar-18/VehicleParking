@@ -29,7 +29,7 @@ const AdminEmployees = () => {
 
   /* ================= FETCH USERS ================= */
   const fetchUsers = async () => {
-    const res = await fetch("http://localhost:5000/api/admin/users");
+    const res = await fetch("ttps://vehicleparking-2xf0.onrender.com/api/admin/users");
     const data = await res.json();
     setUsers(Array.isArray(data) ? data : []);
   };
@@ -49,7 +49,7 @@ const AdminEmployees = () => {
     if (!window.confirm("Delete this employee?")) return;
 
     const res = await fetch(
-      `http://localhost:5000/api/admin/users/${id}`,
+      `https://vehicleparking-2xf0.onrender.com/api/admin/users/${id}`,
       { method: "DELETE" }
     );
 
@@ -65,12 +65,12 @@ const AdminEmployees = () => {
     setEntries([]);
 
     const logsRes = await fetch(
-      `http://localhost:5000/api/users/${employee._id}/activity`
+      `https://vehicleparking-2xf0.onrender.com/api/users/${employee._id}/activity`
     );
     setLogs(await logsRes.json());
 
     const entryRes = await fetch(
-      `http://localhost:5000/api/users/${employee._id}/entries`
+      `https://vehicleparking-2xf0.onrender.com/api/users/${employee._id}/entries`
     );
     setEntries(await entryRes.json());
   };
